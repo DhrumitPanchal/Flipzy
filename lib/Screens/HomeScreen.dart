@@ -1,4 +1,6 @@
+import 'package:dhrumit/Screens/CardType.dart';
 import 'package:dhrumit/theme/font.dart';
+import 'package:dhrumit/widgets/ButtonWithIcon.dart';
 import 'package:dhrumit/widgets/button.dart';
 import 'package:dhrumit/widgets/outlined_text.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // 🔹 SVG Background
           Positioned.fill(
             child: Image.asset(
               'assets/images/subtle-prism.png',
@@ -34,9 +35,21 @@ class HomeScreen extends StatelessWidget {
                       child: Image.asset("assets/images/Logo.png")),
                   // Buttons
                   Column(
-                    children: const [
+                    children:  [
                       SizedBox(height: 18),
-                      Button(text: "QUICK GAME", action: null , beginColor: Colors.lightBlue, endColor: Colors.blue,),
+                      Button(
+                        text: "QUICK GAME",
+                        beginColor: Colors.lightBlue,
+                        endColor: Colors.blue,
+                        action: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Cardtype(),
+                            ),
+                          );
+                        }
+                        ),
                       SizedBox(height: 18),
                       Button(text: "QUEST", action: null , beginColor: Colors.greenAccent, endColor: Colors.green,),
                       SizedBox(height: 18),
@@ -45,15 +58,14 @@ class HomeScreen extends StatelessWidget {
                       Button(text: "SHOP", action: null , beginColor: Colors.orangeAccent, endColor: Colors.deepOrange,),
                     ],
                   ),
-
-                  // Settings
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:  [
+                      Buttonwithicon(icon: Icon(
                         FontAwesomeIcons.gear,
                         color: Colors.white,
-                      ),
+                        size: 18,
+                      ), action: (){}, size: "normal")
                     ],
                   ),
                 ],

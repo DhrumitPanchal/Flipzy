@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // theme: AppTheme.Theme,
-      home: Cardtype(),
+      home: HomeScreen(),
     );
   }
 }

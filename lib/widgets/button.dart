@@ -32,30 +32,33 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-        height: 50,
-        decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: AlignmentGeometry.topCenter,
-            end: AlignmentGeometry.bottomCenter,
-            colors: [beginColor, endColor]),
-        borderRadius:  BorderRadiusGeometry.all(Radius.circular(12)),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x99000000), // 20% black
-            offset: Offset(0, 4),
-            blurRadius: 1,
-          ),
-        ],
+    return InkWell(
+      onTap: action,
+      child: Container(
+        width: 200,
+          height: 50,
+          decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: AlignmentGeometry.topCenter,
+              end: AlignmentGeometry.bottomCenter,
+              colors: [beginColor, endColor]),
+          borderRadius:  BorderRadiusGeometry.all(Radius.circular(12)),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x99000000), // 20% black
+              offset: Offset(0, 4),
+              blurRadius: 1,
+            ),
+          ],
+        ),
+        child:  OutlinedText(
+        text: text ,
+        style: AppTextStyles.headingL,
+        enableShadow: true ,
+        enableStroke: true,
+      )
+      
       ),
-      child:  OutlinedText(
-      text: text ,
-      style: AppTextStyles.headingL,
-      enableShadow: true ,
-      enableStroke: true,
-    )
-
     );
   }
 }

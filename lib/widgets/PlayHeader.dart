@@ -1,3 +1,4 @@
+import 'package:dhrumit/Screens/HomeScreen.dart';
 import 'package:dhrumit/theme/font.dart';
 import 'package:dhrumit/widgets/ButtonWithIcon.dart';
 import 'package:dhrumit/widgets/TextWithIcons.dart';
@@ -105,7 +106,14 @@ class Playheader  extends StatelessWidget{
                             FontAwesomeIcons.house,
                             color: Colors.white,
                           ),
-                          action: () {},
+                          action: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(),
+                              ),
+                            );
+                          },
                           size: "big",
 
                         ),

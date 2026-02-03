@@ -1,3 +1,4 @@
+import 'package:dhrumit/Screens/PlayScreen.dart';
 import 'package:dhrumit/theme/font.dart';
 import 'package:dhrumit/widgets/ButtonWithIcon.dart';
 import 'package:dhrumit/widgets/button.dart';
@@ -18,7 +19,6 @@ class Cardtype extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // 🔹 SVG Background
           Container(
             height: double.infinity,
             child: Positioned.fill(
@@ -29,61 +29,77 @@ class Cardtype extends StatelessWidget {
             ),
           ),
 
-          // 🔹 Content
           SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 500,
-                    width: 300,
-                    decoration: BoxDecoration(
-                      borderRadius:  BorderRadiusGeometry.all(Radius.circular(12)),
-                      color: Colors.black,
-                    )
-                    ,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 14 , bottom: 14),
-                      child: ListView.builder(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  spacing: 14,
+                  children: [
+                    SizedBox(
+                        height: 140,
+                        child: Image.asset("assets/images/Logo.png")),
+                    Container(
+                      height: 500,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        borderRadius:  BorderRadiusGeometry.all(Radius.circular(12)),
+                        color: Colors.black,
+                      )
+                      ,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 14 , bottom: 14),
+                        child: ListView.builder(
 
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(left: 20 , right: 20 , top: 4 , bottom: 6),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadiusGeometry.all(Radius.circular(6))
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6),
-                                    child: Image.asset('assets/images/animals/lion.png'),
-                                  ),
-                                ) ,
-                                Button(
-                                  text: titles[index] ,
-                                  action: () {},
-                                  beginColor: Colors.deepPurpleAccent,
-                                  endColor: Colors.purpleAccent,
-                                )
-                              ]),
-                            );
-                          },
-                          itemCount: titles.length),
-                    )
-                    ),
-                  Buttonwithicon(icon: Icon(
-                    FontAwesomeIcons.music,
-                    color: Colors.white,
-                    size: 18,
-                  ), action: () {}, size: "normal")
-                ],
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 20 , right: 20 , top: 4 , bottom: 6),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Playscreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                    Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadiusGeometry.all(Radius.circular(6))
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(6),
+                                        child: Image.asset('assets/images/animals/lion.png'),
+                                      ),
+                                    ) ,
+                                    Button(
+                                      text: titles[index] ,
+                                      action: () {},
+                                      beginColor: Colors.deepPurpleAccent,
+                                      endColor: Colors.purpleAccent,
+                                    )
+                                  ]),
+                                ),
+                              );
+                            },
+                            itemCount: titles.length),
+                      )
+                      ),
+                    Buttonwithicon(icon: Icon(
+                      FontAwesomeIcons.house,
+                      color: Colors.white,
+                      size: 18,
+                    ), action: () {}, size: "normal")
+                  ],
+                ),
               ),
               ),
             ),
