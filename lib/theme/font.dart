@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dhrumit/theme/colors.dart';
+import 'package:Flipzy/theme/colors.dart';
 
 class AppTextStyles {
   AppTextStyles._();

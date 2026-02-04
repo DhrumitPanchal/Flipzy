@@ -1,13 +1,31 @@
-import 'package:dhrumit/Screens/HomeScreen.dart';
-import 'package:dhrumit/theme/font.dart';
-import 'package:dhrumit/widgets/ButtonWithIcon.dart';
-import 'package:dhrumit/widgets/TextWithIcons.dart';
-import 'package:dhrumit/widgets/outlined_text.dart';
+import 'package:Flipzy/Screens/HomeScreen.dart';
+import 'package:Flipzy/theme/font.dart';
+import 'package:Flipzy/widgets/ButtonWithIcon.dart';
+import 'package:Flipzy/widgets/TextWithIcons.dart';
+import 'package:Flipzy/widgets/outlined_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Playheader  extends StatelessWidget{
+  final int timeLeft;
+  final int score;
+
+  final VoidCallback onPause;
+  final VoidCallback onResume;
+  final VoidCallback onRestart;
+  final VoidCallback onHome;
+
+  const Playheader({
+    super.key,
+    required this.timeLeft,
+    required this.score,
+    required this.onPause,
+    required this.onResume,
+    required this.onRestart,
+    required this.onHome,
+  });
+
 
 
   void showAppBottomSheet({
@@ -106,14 +124,7 @@ class Playheader  extends StatelessWidget{
                             FontAwesomeIcons.house,
                             color: Colors.white,
                           ),
-                          action: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
-                              ),
-                            );
-                          },
+                          action:() => onHome(),
                           size: "big",
 
                         ),
@@ -122,7 +133,10 @@ class Playheader  extends StatelessWidget{
                             FontAwesomeIcons.play,
                             color: Colors.white,
                           ),
-                          action: () {},
+                          action: () {
+                            onResume();
+                            Navigator.pop(context);
+                          },
                           size: "big",
 
                         ),
@@ -131,9 +145,11 @@ class Playheader  extends StatelessWidget{
                             FontAwesomeIcons.rotateRight,
                             color: Colors.white,
                           ),
-                          action: () {},
+                          action: () {
+                            onRestart();
+                            Navigator.pop(context);
+                          },
                           size: "big",
-
                         ),
                       ],
                     ),
@@ -187,9 +203,10 @@ class Playheader  extends StatelessWidget{
                   FontAwesomeIcons.pause,
                   color: Colors.white,
                   size: 18,
-                ),action: () => showAppBottomSheet(
-                  context: context,
-                ),
+                ),action: () {
+                 onPause();
+                showAppBottomSheet(context: context);
+                },
                   size: "normal",
                 ) ,
                 Row(
@@ -200,14 +217,14 @@ class Playheader  extends StatelessWidget{
                         FontAwesomeIcons.pause,
                         color: Colors.white,
                         size: 18,
-                      ), text: "0",
+                      ), text: "${score}",
                     ),
                     Textwithicons(
                       icon:  Icon(
                         FontAwesomeIcons.pause,
                         color: Colors.white,
                         size: 18,
-                      ), text: "13:43",
+                      ), text: "${timeLeft}",
                     ),
                   ],
                 )

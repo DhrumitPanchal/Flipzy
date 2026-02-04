@@ -1,7 +1,5 @@
-import 'package:dhrumit/Screens/CardType.dart';
-import 'package:dhrumit/Screens/HomeScreen.dart';
-import 'package:dhrumit/Screens/PlayScreen.dart';
-import 'package:dhrumit/theme/theme.dart';
+import 'package:Flipzy/Screens/HomeScreen.dart';
+import 'package:Flipzy/Screens/SplaseScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // theme: AppTheme.Theme,
-      home: HomeScreen(),
+      home: Splasescreen(),
     );
   }
 }

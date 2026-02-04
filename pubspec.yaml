@@ -1,4 +1,4 @@
-name: dhrumit
+name: Flipzy
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
   font_awesome_flutter: ^10.12.0
   flutter_svg: ^2.0.9
+  audioplayers: ^5.2.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -41,12 +42,36 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.14.4"
+  flutter_native_splash: ^2.2.16
+  flutter_lints: ^3.0.0   # <-- HERE (same level as splash)
+
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon.png"
+  remove_alpha_ios: true
+  adaptive_icon_foreground : "assets/forground.png"
+  adaptive_icon_background : "assets/background.png"
+
+flutter_native_splash:
+  background_image: assets/background.png
+  image: assets/forground.png
+
+  android_12:
+    image: assets/forground.png
+    background_image: assets/background.png
+
+  android: true
+  ios: true
+
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -61,8 +86,32 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/images/
-     - assets/images/animals/
+     - assets/images/Logo.png
+     - assets/forground.png
+     - assets/sounds/
+     - assets/sounds/music.mp3
+     - assets/images/repeating-chevrons.png
+     - assets/images/subtle-prism.png
+     - assets/images/wavey-fingerprint.png
+     - assets/images/animals/lion.png
+     - assets/images/animals/horse.png
+     - assets/images/animals/bear.png
+     - assets/images/animals/rabbit.png
+     - assets/images/animals/cow.png
+     - assets/images/animals/deer.png
+     - assets/images/animals/dog.png
+     - assets/images/animals/gorilla.png
+     - assets/images/animals/owl.png
+     - assets/images/fruit/apple.png
+     - assets/images/fruit/banana.png
+     - assets/images/fruit/dragon-fruit.png
+     - assets/images/fruit/grapes.png
+     - assets/images/fruit/kiwi.png
+     - assets/images/fruit/mango.png
+     - assets/images/fruit/orange.png
+     - assets/images/fruit/papaya.png
+     - assets/images/fruit/strawberry.png
+     - assets/images/fruit/watermelon.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

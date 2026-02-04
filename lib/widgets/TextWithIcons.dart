@@ -1,5 +1,5 @@
-import 'package:dhrumit/theme/font.dart';
-import 'package:dhrumit/widgets/outlined_text.dart';
+import 'package:Flipzy/theme/font.dart';
+import 'package:Flipzy/widgets/outlined_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

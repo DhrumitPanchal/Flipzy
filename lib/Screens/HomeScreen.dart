@@ -1,8 +1,9 @@
-import 'package:dhrumit/Screens/CardType.dart';
-import 'package:dhrumit/theme/font.dart';
-import 'package:dhrumit/widgets/ButtonWithIcon.dart';
-import 'package:dhrumit/widgets/button.dart';
-import 'package:dhrumit/widgets/outlined_text.dart';
+import 'package:Flipzy/widgets/button.dart';
+import 'package:Flipzy/Screens/CardType.dart';
+import 'package:Flipzy/theme/font.dart';
+import 'package:Flipzy/widgets/ButtonWithIcon.dart';
+import 'package:Flipzy/widgets/button.dart';
+import 'package:Flipzy/widgets/outlined_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
