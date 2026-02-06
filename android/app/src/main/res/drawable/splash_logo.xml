@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Transparent padding -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent"/>
+            <size
+                android:width="200dp"
+                android:height="200dp"/>
+        </shape>
+    </item>
+
+    <!-- Actual logo -->
+    <item
+        android:gravity="center">
+
+        <bitmap
+            android:src="@drawable/logo"
+            android:gravity="center"
+            android:filter="true"/>
+    </item>
+
+</layer-list>

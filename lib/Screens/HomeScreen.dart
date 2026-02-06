@@ -52,12 +52,14 @@ class HomeScreen extends StatelessWidget {
                         }
                         ),
                       SizedBox(height: 18),
-                      Button(text: "QUEST", action: null , beginColor: Colors.greenAccent, endColor: Colors.green,),
-                      SizedBox(height: 18),
-                      Button(text: "2 PLAYERS", action: null , beginColor: Colors.deepPurpleAccent, endColor: Colors.deepPurple,),
-                      SizedBox(height: 18),
-                      Button(text: "SHOP", action: null , beginColor: Colors.orangeAccent, endColor: Colors.deepOrange,),
-                    ],
+                      Opacity(
+                        opacity: 0.6,
+                        child: Button(text: "QUEST", action: null , beginColor: Colors.greenAccent, endColor: Colors.green,),
+                      ),SizedBox(height: 18),
+                      Opacity(
+                          opacity: 0.6,
+                          child: Button(text: "2 PLAYERS", action: null , beginColor: Colors.deepPurpleAccent, endColor: Colors.deepPurple,)),
+                      ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

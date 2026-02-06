@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
-        <item name="android:windowSplashScreenBackground">@drawable/launch_background</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@null</item>
+    <style name="LaunchTheme" parent="Theme.SplashScreen">
+
+        <item name="windowSplashScreenBackground">@drawable/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@null</item>
+
+        <!-- VERY IMPORTANT -->
+        <item name="postSplashScreenTheme">@style/NormalTheme</item>
+
     </style>
 
 </resources>

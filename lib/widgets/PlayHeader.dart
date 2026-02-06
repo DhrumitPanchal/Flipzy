@@ -1,4 +1,5 @@
 import 'package:Flipzy/Screens/HomeScreen.dart';
+import 'package:Flipzy/services/audio_service.dart';
 import 'package:Flipzy/theme/font.dart';
 import 'package:Flipzy/widgets/ButtonWithIcon.dart';
 import 'package:Flipzy/widgets/TextWithIcons.dart';
@@ -40,125 +41,141 @@ class Playheader  extends StatelessWidget{
       barrierColor: Colors.black54,
       transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (_, __, ___) {
-        return Center(
-          child: Material(
-            color: Colors.transparent,
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.55,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.deepPurple, Colors.pink],
+        return StatefulBuilder(builder: (context , setState) {
+          return Center(
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.55,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.deepPurple, Colors.pink],
+                  ),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 10,
-                  children: [
-                    /// Title
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: OutlinedText(
-                        text: "PAUSE",
-                        enableStroke: true,
-                        style: AppTextStyles.headingXL,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 10,
+                    children: [
+                      /// Title
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: OutlinedText(
+                          text: "PAUSE",
+                          enableStroke: true,
+                          style: AppTextStyles.headingXL,
+                        ),
                       ),
-                    ),
 
-                    /// Controls row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        OutlinedText(
-                          text: "MUSIC",
-                          enableStroke: true,
-                          style: AppTextStyles.headingL,
-                        ),
-                        Buttonwithicon(
-                          icon: const Icon(
-                            FontAwesomeIcons.music,
-                            color: Colors.white,
-                            size: 18,
+                      /// Controls row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          OutlinedText(
+                            text: "MUSIC",
+                            enableStroke: true,
+                            style: AppTextStyles.headingL,
                           ),
-                          action: () {},
-                          size: "normal",
+                          Buttonwithicon(
+                            icon: Icon(
+                              AudioService.musicEnabled
+                                  ? FontAwesomeIcons.music
+                                  : FontAwesomeIcons.volumeXmark,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                            action: () {
+                              AudioService.toggleMusic();
+                              setState(() {}); // 👈 rebuild dialog instantly
 
-                        ),
-                      ],
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        OutlinedText(
-                          text: "SOUND FX",
-                          enableStroke: true,
-                          style: AppTextStyles.headingL,
-                        ),
-                        Buttonwithicon(
-                          icon: const Icon(
-                            FontAwesomeIcons.volumeHigh,
-                            color: Colors.white,
-                            size: 18,
+                              (context as Element).markNeedsBuild();
+                            },
+                            size: "normal",
                           ),
-                          action: () {},
-                          size: "normal",
 
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 18,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                        ],
+                      ),
 
-                        Buttonwithicon(
-                          icon: const Icon(
-                            FontAwesomeIcons.house,
-                            color: Colors.white,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          OutlinedText(
+                            text: "SOUND FX",
+                            enableStroke: true,
+                            style: AppTextStyles.headingL,
                           ),
-                          action:() => onHome(),
-                          size: "big",
+                          Buttonwithicon(
+                            icon: Icon(
+                              AudioService.sfxEnabled
+                                  ? FontAwesomeIcons.volumeHigh
+                                  : FontAwesomeIcons.volumeXmark,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                            action: () {
+                              AudioService.toggleSfx();
+                              setState(() {}); // 👈 rebuild dialog instantly
 
-                        ),
-                        Buttonwithicon(
-                          icon: const Icon(
-                            FontAwesomeIcons.play,
-                            color: Colors.white,
+                              (context as Element).markNeedsBuild();
+                            },
+                            size: "normal",
                           ),
-                          action: () {
-                            onResume();
-                            Navigator.pop(context);
-                          },
-                          size: "big",
 
-                        ),
-                        Buttonwithicon(
-                          icon: const Icon(
-                            FontAwesomeIcons.rotateRight,
-                            color: Colors.white,
+                        ],
+                      ),
+                      SizedBox(
+                        height: 18,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+                          Buttonwithicon(
+                            icon: const Icon(
+                              FontAwesomeIcons.house,
+                              color: Colors.white,
+                            ),
+                            action:() => onHome(),
+                            size: "big",
+
                           ),
-                          action: () {
-                            onRestart();
-                            Navigator.pop(context);
-                          },
-                          size: "big",
-                        ),
-                      ],
-                    ),
-                  ],
+                          Buttonwithicon(
+                            icon: const Icon(
+                              FontAwesomeIcons.play,
+                              color: Colors.white,
+                            ),
+                            action: () {
+                              onResume();
+                              Navigator.pop(context);
+                            },
+                            size: "big",
+
+                          ),
+                          Buttonwithicon(
+                            icon: const Icon(
+                              FontAwesomeIcons.rotateRight,
+                              color: Colors.white,
+                            ),
+                            action: () {
+                              onRestart();
+                              Navigator.pop(context);
+                            },
+                            size: "big",
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
+          );
+        });
       },
       transitionBuilder: (_, animation, __, child) {
         return ScaleTransition(
@@ -182,7 +199,7 @@ class Playheader  extends StatelessWidget{
   Widget build(BuildContext context) {
     return  Center(
       child: Container(
-        height: 80,
+        height: 90,
         width:  MediaQuery.of(context).size.width * 0.95,
         decoration: BoxDecoration(
           borderRadius: BorderRadiusGeometry.only(bottomLeft: Radius.circular(20) , bottomRight: Radius.circular(20)),

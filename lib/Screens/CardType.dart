@@ -24,15 +24,13 @@ class Cardtype extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            height: double.infinity,
-            child: Positioned.fill(
+           Positioned.fill(
               child: Image.asset(
                 'assets/images/subtle-prism.png',
                 fit: BoxFit.cover,
               ),
             ),
-          ),
+
 
           SafeArea(
             child: Padding(

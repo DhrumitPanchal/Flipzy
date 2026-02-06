@@ -1,3 +1,4 @@
+import 'package:Flipzy/services/audio_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,7 +20,10 @@ class Buttonwithicon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: action,
+      onTap: () => {
+        AudioService.buttonTap(),
+        action()
+      },
       child: Stack(
         children: [
           Container(

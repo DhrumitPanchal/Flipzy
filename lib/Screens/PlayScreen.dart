@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'dart:math';
 
 import 'package:Flipzy/Screens/HomeScreen.dart';
 import 'package:Flipzy/data/cards_data.dart';
@@ -43,8 +44,9 @@ class Playscreen extends StatefulWidget {
   State<Playscreen> createState() => _PlayscreenState();
 }
 
-class _PlayscreenState extends State<Playscreen> {
-  late final cards;
+class _PlayscreenState extends State<Playscreen>  with WidgetsBindingObserver {
+
+  late List<GameCard> cards;
   int? firstIndex;
   bool lockBoard = false;
   int matchedPairs = 0;
@@ -58,25 +60,30 @@ class _PlayscreenState extends State<Playscreen> {
   void initState() {
     super.initState();
 
-    final baseCards = List<GameCard>.from(
-      getCardsByType(widget.selectedType),
-    )..shuffle();
+    WidgetsBinding.instance.addObserver(this);
 
-    final uniqueCount = widget.totalCards;
-
-    final selected = baseCards.take(uniqueCount).toList();
-
-    cards = [
-      ...selected,
-      ...selected.map(
-            (c) => GameCard(id: c.id, image: c.image, type: c.type),
-      ),
-    ]..shuffle();
-
-    startTimer(); // 👈
+    generateCards();
+    startTimer();
     AudioService.playBackground();
-
   }
+
+
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached ||
+        state == AppLifecycleState.inactive) {
+      AudioService.stopBackground(); // app minimized / killed
+    }
+
+    if (state == AppLifecycleState.resumed) {
+      if (AudioService.musicEnabled) {
+        AudioService.playBackground(); // app reopened
+      }
+    }
+  }
+
 
   void checkGameComplete() {
     if (cards.every((c) => c.isMatched)) {
@@ -119,6 +126,7 @@ class _PlayscreenState extends State<Playscreen> {
   void onCardTap(int index) {
     if (lockBoard) return;
     if (cards[index].isFlipped || cards[index].isMatched) return;
+    AudioService.playFlip();
 
     setState(() {
       cards[index].isFlipped = true;
@@ -143,9 +151,9 @@ class _PlayscreenState extends State<Playscreen> {
 
         matchedPairs++;
       });
+      final totalPairs = cards.length ~/ 2;
 
-      // TOTAL PAIRS = unique cards count
-      if (matchedPairs == widget.totalCards) {
+      if (matchedPairs == totalPairs) {
         gameTimer?.cancel();
 
         Future.delayed(const Duration(milliseconds: 300), () {
@@ -201,6 +209,8 @@ class _PlayscreenState extends State<Playscreen> {
       }
 
       cards.shuffle();
+      generateCards(); // 🔥 rebuild cards with new random count
+
     });
 
     startTimer();
@@ -244,6 +254,37 @@ class _PlayscreenState extends State<Playscreen> {
     final timeScore = timeRatio * 30;
 
     return (matchScore + timeScore).clamp(0, 100);
+  }
+
+  void generateCards() {
+    final original =
+    getCardsByType(widget.selectedType);
+
+    // Deep copy cards
+    final baseCards = original
+        .map((c) => GameCard(id: c.id, image: c.image, type: c.type))
+        .toList()
+      ..shuffle();
+
+    final maxUnique = baseCards.length;
+
+    final random = Random();
+    int uniqueCount = random.nextInt(maxUnique ~/ 2) * 2;
+
+    if (uniqueCount < 2) uniqueCount = 2;
+
+    final selected = baseCards.take(uniqueCount).toList();
+
+    cards = [
+      ...selected,
+      ...selected.map(
+            (c) => GameCard(id: c.id, image: c.image, type: c.type),
+      ),
+    ]..shuffle();
+
+    matchedPairs = 0;
+    firstIndex = null;
+    lockBoard = false;
   }
 
 
@@ -333,23 +374,26 @@ class _PlayscreenState extends State<Playscreen> {
     );
   }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    AudioService.stopBackground();
+    gameTimer?.cancel();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       body: Stack(
-        children: [
-          // 🔹 SVG Background
-          Container(
-            height: double.infinity,
-            child: Positioned.fill(
+       children: [  Positioned.fill(
               child: Image.asset(
                 'assets/images/subtle-prism.png',
                 fit: BoxFit.cover,
               ),
             ),
-          ),
           Column(
               crossAxisAlignment:  CrossAxisAlignment.end,
               children: [
